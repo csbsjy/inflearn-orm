@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.LinkedList;
 
-@Entity // JPA 를 사용하는 클래스구나~
-public class Member {
+//@Entity // JPA 를 사용하는 클래스구나~
+public class MemberSafe {
 
     @Id //primary key
     private Long id;
@@ -29,10 +29,10 @@ public class Member {
         this.name = name;
     }
 
-    public Member() {
+    public MemberSafe() {
     }
 
-    public Member(Long id, String name) {
+    public MemberSafe(Long id, String name) {
         this.id = id;
         this.name = name;
     }
