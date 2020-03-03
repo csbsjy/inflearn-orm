@@ -2,7 +2,7 @@ package practice1.jpabook.jpashop.domain;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Member {
 
     @Id

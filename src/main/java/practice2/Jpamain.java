@@ -1,16 +1,14 @@
-package practice1;
+package practice2;
 
 import hellojpa.domain.MemberSafe;
 import practice1.jpabook.jpashop.domain.Member;
-import practice1.jpabook.jpashop.domain.Order;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-
-public class JpaMainPractice1 {
+public class Jpamain {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
         EntityManager em = entityManagerFactory.createEntityManager(); // = Database Connection
@@ -19,10 +17,20 @@ public class JpaMainPractice1 {
         tx.begin();
 
         try {
-            Order order = em.find(Order.class, 1L);
-            Long memberId = order.getMemberId();
 
-            Member member = em.find(Member.class, memberId); // 객체지향적이지 않은 로직! 데이터 중심의 포현법의 한계.
+            TeamTwo teamTwo = new TeamTwo();
+            teamTwo.setName("teamA");
+            em.persist(teamTwo);   // team의 ID가 할당됨
+
+            MemberTwo memberTwo = new MemberTwo();
+            memberTwo.setName("memberB");
+            memberTwo.setTeamTwo(teamTwo);
+            em.persist(memberTwo);
+
+            MemberTwo memberTwo1 = em.find(MemberTwo.class, memberTwo.getId());
+            System.out.println(memberTwo1.getTeamTwo().getName());
+            tx.commit();
+
 
         } catch (Exception e) {
             tx.rollback();
@@ -34,4 +42,3 @@ public class JpaMainPractice1 {
         entityManagerFactory.close();
     }
 }
-

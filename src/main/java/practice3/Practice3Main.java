@@ -1,17 +1,15 @@
-package practice1;
-
-import hellojpa.domain.MemberSafe;
-import practice1.jpabook.jpashop.domain.Member;
-import practice1.jpabook.jpashop.domain.Order;
+package practice3;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
+public class Practice3Main {
 
-public class JpaMainPractice1 {
     public static void main(String[] args) {
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
         EntityManager em = entityManagerFactory.createEntityManager(); // = Database Connection
 
@@ -19,10 +17,31 @@ public class JpaMainPractice1 {
         tx.begin();
 
         try {
-            Order order = em.find(Order.class, 1L);
-            Long memberId = order.getMemberId();
 
-            Member member = em.find(Member.class, memberId); // 객체지향적이지 않은 로직! 데이터 중심의 포현법의 한계.
+            Team team = new Team();
+            team.setName("TEAM_A");
+
+            em.persist(team);
+
+            Member member = new Member();
+            member.setName("MEMBER_A");
+            member.setTeam(team);
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+            List<Member> members = findMember.getTeam().getMembers();
+
+            for (Member member1 : members) {
+                System.out.println(member1.getName());
+            }
+
+
+            tx.commit();
+
 
         } catch (Exception e) {
             tx.rollback();
@@ -32,6 +51,7 @@ public class JpaMainPractice1 {
 
 
         entityManagerFactory.close();
+
+
     }
 }
-

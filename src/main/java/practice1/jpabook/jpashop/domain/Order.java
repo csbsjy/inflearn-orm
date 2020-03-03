@@ -3,7 +3,7 @@ package practice1.jpabook.jpashop.domain;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+//@Entity
 @Table(name = "ORDERS") // query 의 order by  ..
 public class Order {
 
