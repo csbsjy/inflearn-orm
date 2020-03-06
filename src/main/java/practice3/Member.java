@@ -2,6 +2,8 @@ package practice3;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // JPA 를 사용하는 클래스구나~
 public class Member {
@@ -17,6 +19,9 @@ public class Member {
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
 
     public Long getId() {
